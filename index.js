@@ -1,7 +1,3 @@
-import express from 'express';
+console.log("Hello, world!");
+console.error("TEST");
 
-const app = express();
-app.get('/hello', (req, res) => {
-	res.json({ msg: 'hello' });
-});
-app.listen(3000);
