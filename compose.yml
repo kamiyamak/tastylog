@@ -1,9 +1,7 @@
 services:
   node-app:
     image: node:20.6.1
-    working_dir: /
     volumes:
-      - ./:/
       - app-logs:/logs
     ports:
       - "3000:3000"
