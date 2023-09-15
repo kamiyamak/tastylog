@@ -1,0 +1,32 @@
+services:
+  node-app:
+    image: node:20.6.1
+    working_dir: /
+    volumes:
+      - ./:/
+      - app-logs:/logs
+    ports:
+      - "3000:3000"
+    environment:
+      - MYSQL_HOST=mysql
+      - MYSQL_PORT=3306
+    links:
+      - mysql
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.1.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      # MYSQL_DATABASE: test
+      # MYSQL_USER: root
+      MYSQL_PASSWORD: root
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+volumes:
+  mysql-data: # MySQLデータの永続化用ボリューム
+  app-logs: # Node.jsアプリケーションのログの保存用ボリューム
