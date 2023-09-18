@@ -9,6 +9,7 @@
   "author": "kamiyamak",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^20.6.2",
     "eslint": "^8.49.0"
   },
   "dependencies": {
