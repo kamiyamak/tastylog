@@ -1,8 +1,6 @@
 services:
   node-app:
     image: node:20.6.1
-    volumes:
-      - app-logs:/logs
     ports:
       - "3000:3000"
     environment:
@@ -27,4 +25,3 @@ services:
 
 volumes:
   mysql-data: # MySQLデータの永続化用ボリューム
-  app-logs: # Node.jsアプリケーションのログの保存用ボリューム
