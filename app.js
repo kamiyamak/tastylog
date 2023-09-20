@@ -1,6 +1,7 @@
 const PORT = process.env.PORT;
 const path = require("path");
 const logger = require("./lib/log/logger.js");
+const applicationlogger = require("./lib/log/applicationlogger.js");
 const express = require("express");
 const favicon = require("serve-favicon");
 const app = express();
@@ -16,7 +17,10 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 // dynamic resource routing
 app.use("/", require("./routes/index.js"));
 
-// execute wev application
+// Set application log
+app.use(applicationlogger());
+
+// execute web application
 app.listen(PORT, () => {
-    logger.console.info(`App listenning at ${PORT}`);
+    logger.application.info(`App listenning at ${PORT}`);
 });
