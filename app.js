@@ -25,14 +25,12 @@ app.use("/test", async (req, res, next) => {
     var data;
 
     try {
-        await MySQLClient.connect();
-        data = await MySQLClient.query(await sql("SELECT_SHOP_BASIC_BY_ID"), [1]);
+        data = await MySQLClient.executeQuery(await sql("SELECT_SHOP_BASIC_BY_ID"), [1]);
         console.log(data);
     } catch (err) {
         next(err);
-    } finally {
-        await MySQLClient.end();
     }
+    
     res.end("OK");
 });
 
