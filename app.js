@@ -41,5 +41,5 @@ app.use(applicationlogger());
 
 // execute web application
 app.listen(PORT, () => {
-    logger.application.info(`App listenning at ${PORT}`);
+    logger.application.info(`App listening at ${PORT}`);
 });
