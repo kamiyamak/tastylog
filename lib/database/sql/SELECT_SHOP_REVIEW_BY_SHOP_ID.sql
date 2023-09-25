@@ -1,7 +1,7 @@
 SELECT
     t_review.id,
     t_user.id as `user_id`,
-    t_user.name,
+    t_user.name as `user_name`,
     t_review.score,
     t_review.visit,
     t_review.post,
