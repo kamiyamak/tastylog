@@ -26,8 +26,9 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 app.use(accesslogger());
 
 // dynamic resource routing
+app.use("/search", require("./routes/search.js"));
+app.use("/shops", require("./routes/shops.js"));
 app.use("/", require("./routes/index.js"));
-app.use("/shops", require("./routes/shops.js"))
 
 // Set application log
 app.use(applicationlogger());
