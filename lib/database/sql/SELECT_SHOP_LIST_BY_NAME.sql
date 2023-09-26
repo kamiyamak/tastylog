@@ -13,11 +13,11 @@ FROM
 SELECT 
     *
 FROM
-(
-    SELECT * FROM t_shop WHERE name LIKE ?
-) as shop
+    (
+        SELECT * FROM t_shop WHERE name LIKE ?
+    ) as shop
 LEFT JOIN t_shop_category ON shop.id = t_shop_category.shop_id
 ) as shop_category
 LEFT JOIN m_category ON shop_category.category_id = m_category.id
 GROUP BY shop_category.id
-LIMIT ?
+LIMIT ?, ?
