@@ -25,6 +25,9 @@ app.use("/public", express.static(path.join(__dirname, "/public")));
 // Set Access Log
 app.use(accesslogger());
 
+// Set Middleware
+app.use(express.urlencoded({extended: true}));
+
 // dynamic resource routing
 app.get("/test", async (req, res, next) => {
     const { MySQLClient } = require("./lib/database/client.js");
