@@ -43,6 +43,7 @@ app.get("/test", async (req, res, next) => {
         next(err);
     }
 });
+app.use("/account", require("./routes/account.js"));
 app.use("/search", require("./routes/search.js"));
 app.use("/shops", require("./routes/shops.js"));
 app.use("/", require("./routes/index.js"));
