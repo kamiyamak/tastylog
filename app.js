@@ -1,4 +1,5 @@
-const PORT = process.env.PORT;
+const appconfig = require("./config/application.config.js");
+const dbconfig = require("./config/mysql.config.js");
 const path = require("path");
 const logger = require("./lib/log/logger.js");
 const accesslogger = require("./lib/log/accesslogger.js");
@@ -6,6 +7,8 @@ const applicationlogger = require("./lib/log/applicationlogger.js");
 const express = require("express");
 const favicon = require("serve-favicon");
 const cookie = require("cookie-parser");
+const session = require("express-session");
+const MySQLStore = require("express-mysql-session")(session);
 const app = express();
 
 // express settings
@@ -28,12 +31,21 @@ app.use(accesslogger());
 
 // Set Middleware
 app.use(cookie());
+app.use(session({
+    store: new MySQLStore({
+        host: dbconfig.HOST,
+        port: dbconfig.PORT,
+        user: dbconfig.USERNAME,
+        password: dbconfig.PASSWORD,
+        database: dbconfig.DATABASE
+    }),
+    secret: appconfig.security.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    name: "sid"
+}));
 app.use(express.urlencoded({extended: true}));
-app.use((req, res, next) => {
-    console.log(req.cookies.message);
-    res.cookie("message", "Hi, there.");
-    next();
-});
+
 
 // dynamic resource routing
 app.get("/test", async (req, res, next) => {
@@ -62,6 +74,6 @@ app.use("/", require("./routes/index.js"));
 app.use(applicationlogger());
 
 // execute web application
-app.listen(PORT, () => {
-    logger.application.info(`App listening at ${PORT}`);
+app.listen(appconfig.PORT, () => {
+    logger.application.info(`App listening at ${appconfig.PORT}`);
 });
